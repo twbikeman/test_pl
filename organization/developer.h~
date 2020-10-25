@@ -1,0 +1,14 @@
+#include <string>
+#include "employee.h"
+using namespace std;
+
+class Developer : public Employee {
+public:
+  Developer(string, int, int);
+  void employ(Employee *, function<void(Employee *)>) = 0;
+  void dismiss(function<void(Employee *)>) = 0;
+  void promote(function<void(Employee *)>) = 0;
+  void ask(function<void(Employee *)>) = 0;
+
+  
+};
