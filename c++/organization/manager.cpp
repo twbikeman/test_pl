@@ -12,11 +12,23 @@ void Manager::employ(Employee *candidate, function<bool(Employee *)> rule){
 } 
 
 void Manager::dismiss(function<bool(Employee *)> rule){
-  rule(this);
+  int i = 0;
+  for (auto e: this->employees) {
+    if (rule(e)) this->employees.erase(this->employees.begin() + i);
+    i++;
+  }
+
+
+	   
 }
 
 void Manager::promote(function<void(Employee *)> rule){
-    rule(this);
+
+  int num = this->employees.size();
+  rule(this);
+  for (auto e: this->employees)
+    e->promote(rule);
+
 }
 
 void Manager::ask(function<void(Employee *)> todo){

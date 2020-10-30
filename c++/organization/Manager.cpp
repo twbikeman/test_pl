@@ -10,7 +10,7 @@ void Manager::employ(Employee *candiate, function<void(Employee *)> rule){
   rule(this);
 } 
 
-void Manager::dismiss(function<void(Employee *)> rule){
+void Manager::dismiss(function<bool(Employee *)> rule){
   rule(this);
 }
 
