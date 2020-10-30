@@ -106,13 +106,13 @@ TEST_F(OrganizationTest, dismissEmployeeByName) {
    ASSERT_EQ(mNames[1], "Shane");
 }
 
-TEST_F(OrganizationTest, disemac) {
+TEST_F(OrganizationTest, dismissEmployeeWhoseSeniorityisLessThan3) {
   
-  function<bool (Employee *)> employeeWhoseSeniority = [](Employee *e) {
+  function<bool (Employee *)> dismissEmployeeWhoseSeniorityisLessThan3 = [](Employee *e) {
 
     return e->getSeniority() < 3;
   };
-  this->bailey->dismiss(employeeWhoseSeniority);
+  this->bailey->dismiss(dismissEmployeeWhoseSeniorityisLessThan3);
 
   vector<string> mNames;
   function<void (Employee *)> memberNames = [&mNames](Employee *e) {
@@ -144,18 +144,11 @@ TEST_F(OrganizationTest, promoteEmployeeWhoseSeniorityIsGreaterThan3ByRaisingSal
 
 }
 
-/*
 TEST_F(OrganizationTest, promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2pct)
 {
-
-  function<void (Employee *)> IfItHasMoreThan2EmployeesByRaisingSalary2pct = [num](Employee *e){
-
-    if (dynamic_cast<Manager *>(e) != nullptr) {
-    
-      if (num >= 2) e->setSalary(e->getSalary() * 1.02);
-    }
-    else
-      return;
+  int count = 0
+  function<void (Employee *)> IfItHasMoreThan2EmployeesByRaisingSalary2pct = [&count](Employee *e){
+     count += 1;
   };
 
   this->aysha->promote(IfItHasMoreThan2EmployeesByRaisingSalary2pct);
@@ -172,4 +165,3 @@ TEST_F(OrganizationTest, promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2
   ASSERT_EQ(mSalay[4], 48000);
 }
 
-*/

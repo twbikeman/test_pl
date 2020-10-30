@@ -24,7 +24,7 @@ void Manager::dismiss(function<bool(Employee *)> rule){
 
 void Manager::promote(function<void(Employee *)> rule){
 
-  int num = this->employees.size();
+
   rule(this);
   for (auto e: this->employees)
     e->promote(rule);
