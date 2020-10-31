@@ -7,8 +7,6 @@ class Employee
         @seniority = seniority
     end
 
-    def setSalary salary
-        @salary = salary
-    end
+
 
 end
