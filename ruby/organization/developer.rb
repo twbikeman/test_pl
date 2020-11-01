@@ -6,5 +6,9 @@ class Developer < Employee
         super name, salary, seniory
     end
 
+    def ask rule
+      rule.call self
+    end
+
 end
 

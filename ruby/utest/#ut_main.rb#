@@ -70,7 +70,7 @@ class TestOrganization < Test::Unit::TestCase
       assert_equal(mNames[0], "Bailey")
       assert_equal(mNames[1], "Hero")
       assert_equal(mNames[2], "Shane")
-      assert_equal(mNames[3], "Rafael")
+      assert_equal(mNames[3], "Rafael")d
     
     
   end
