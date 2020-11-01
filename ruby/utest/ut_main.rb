@@ -107,12 +107,13 @@ class TestOrganization < Test::Unit::TestCase
   
     
   def test9_promoteEmployeeHavingMoreThan2EmployeeByRaisingSalary2pct
-    count = 0
+
     @aysha.promote do |x|
+      count  = 0
+      x.ask {count += 1}
       if count > 2
         x.salary = (x.salary * 1.02).round
       end
-      count = count + 1
     end
     
     mSalary = []
@@ -149,5 +150,9 @@ class TestOrganization < Test::Unit::TestCase
     assert_equal(mNames[2], "Hero")
     assert_equal(mNames[3], "Shane")
   end
+
+
+  
+    
 
 end

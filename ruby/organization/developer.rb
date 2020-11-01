@@ -11,7 +11,8 @@ class Developer < Employee
     end
 
     def promote &block
-      yield self,1
+      yield self
+      return 1
     end
     
 

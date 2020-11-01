@@ -42,8 +42,7 @@ class Manager < Employee
         end
       end
       yield self
-    end
-      
+    end    
     
 end
 
