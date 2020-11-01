@@ -180,6 +180,7 @@ TEST_F(OrganizationTest, dismissMangerAndTransferEmployees)
   function<bool(Employee *)> transfer = [&employees](Employee *e) {
 					   employees.push_back(e);
 					   return true;
+
 					};
 
   this->aysha->dismiss(Bailey);

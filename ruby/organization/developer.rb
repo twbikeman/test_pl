@@ -6,9 +6,17 @@ class Developer < Employee
         super name, salary, seniory
     end
 
-    def ask rule
-      rule.call self
+    def ask &block
+      yield self
     end
 
+    def promote &block
+      yield self,1
+    end
+    
+
 end
+
+
+
 

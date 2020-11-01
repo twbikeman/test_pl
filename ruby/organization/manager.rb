@@ -8,24 +8,42 @@ class Manager < Employee
         @employees += employees unless employees.nil?
     end
 
-    def ask rule
-      rule.call self
+    def ask &block
+      yield self
       if !@employees.empty?
-      @employees.each do |x|
-        x.ask rule
-      end
-      end
+        @employees.each do |x|
+          x.ask &block
+        end
+      end                       
     end
 
 
-    def employ employee, rule
-
-      if rule.call self
+    def employ employee, &block
+      if yield self
         @employees << employee
       end
-      
     end
-  
 
+    def dismiss &block
+      if !@employees.empty?
+        @employees.each do |x|
+          if yield x
+            @employees.delete(x)
+          end
+        end                       
+      end
+    end
+
+
+    def promote &block
+      if !@employees.empty?
+        @employees.each do |x|
+          x.promote &block
+        end
+      end
+      yield self
+    end
+      
+    
 end
 
