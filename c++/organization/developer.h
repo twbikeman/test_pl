@@ -9,6 +9,4 @@ public:
   void dismiss(function<bool(Employee *)>);
   void promote(function<void(Employee *)>);
   void ask(function<void(Employee *)>);
-
-  
 };

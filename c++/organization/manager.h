@@ -1,7 +1,5 @@
 #include <string>
 #include <vector>
-
-
 #include "employee.h"
 
 class Manager : public Employee {

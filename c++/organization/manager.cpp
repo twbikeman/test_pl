@@ -12,24 +12,11 @@ void Manager::employ(Employee *candidate, function<bool(Employee *)> rule){
 } 
 
 void Manager::dismiss(function<bool(Employee *)> rule){
-  
   vector<Employee *>::iterator it = this->employees.begin();
-
   while(it != this->employees.end()) {
     if(rule(*it)) this->employees.erase(it);
     else it++;
   }
-
-  
-
-  // int i = 0;
-  //   for (auto e: this->employees) {
-  //     if (rule(e)) {
-  // 	this->employees.erase(this->employees.begin() + i);
-  // 	i -= 1;
-  //     }
-  //     i += 1;
-  //   }
 }
 
 void Manager::promote(function<void(Employee *)> rule){

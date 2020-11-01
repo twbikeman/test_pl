@@ -3,7 +3,6 @@
 
 #include <functional>
 #include <string>
-
 using namespace std;
 
 class Employee {
@@ -11,8 +10,6 @@ class Employee {
   string name;
   int salary;
   int seniority;
-
-
  public:
   Employee(string, int, int);
   string getName();
@@ -20,7 +17,6 @@ class Employee {
   int getSeniority();
   void setSalary(int);
   void setSeniority(int);
-
   virtual void employ(Employee *, function<bool(Employee *)>) = 0;
   virtual void dismiss(function<bool(Employee *)>) = 0;
   virtual void promote(function<void(Employee *)>) = 0;
