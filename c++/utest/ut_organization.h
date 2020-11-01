@@ -36,46 +36,46 @@ protected:
   Manager *aysha;
 };
 
-TEST_F(OrganizationTest, developerInitialize) {
-  ASSERT_EQ("Shane", this->shane->getName());
-  ASSERT_EQ(48000, this->shane->getSalary());
-  ASSERT_EQ(2, this->shane->getSeniority()); 
+TEST_F(OrganizationTest, test1_developerInitialize) {
+  ASSERT_EQ(this->hero->getName(), "Hero");
+  ASSERT_EQ(this->hero->getSalary(), 55000);
+  ASSERT_EQ(this->hero->getSeniority(), 3); 
 }
 
-TEST_F(OrganizationTest, askMemberNames) {
 
+TEST_F(OrganizationTest, test2_managerInitializationWithEmployees) {
+  ASSERT_EQ(this->bailey->getName(), "Bailey");
+  ASSERT_EQ(this->bailey->getSalary(), 68320);
+  ASSERT_EQ(this->bailey->getSeniority(), 7); 
+}
+
+
+TEST_F(OrganizationTest, test3_askMemberNames) {
   vector<string> mNames;
   function<void(Employee *)> memberNames = [&mNames](Employee *e){
-					     mNames.push_back(e->getName());
-
-				    };
-  this->bailey->ask(memberNames);
-  
-  ASSERT_EQ("Bailey",mNames[0]);
-  ASSERT_EQ("Hero",mNames[1]);
-  ASSERT_EQ("Shane",mNames[2]);
+					     mNames.push_back(e->getName());				     
+					   };
+  this->bailey->ask(memberNames);  
+  ASSERT_EQ(mNames[0], "Bailey");
+  ASSERT_EQ(mNames[1], "Hero");
+  ASSERT_EQ(mNames[2], "Shane");
 }
 
 
-TEST_F(OrganizationTest, askAllCost) {
+TEST_F(OrganizationTest, test4_askAllCost) {
   int summary = 0;
   function<void(Employee *)> allCost = [&summary](Employee *e){
     summary += e->getSalary();
   };
   this->aysha->ask(allCost);
-  ASSERT_EQ(310220, summary);
-
+  ASSERT_EQ(summary,310220);
 }
 
-
-TEST_F(OrganizationTest, employNewDeveloper) {
+TEST_F(OrganizationTest, test5_employNewDeveloper) {
 
   function<bool (Employee *)> employRafaelWithBailey = [](Employee *e)->bool {
     return dynamic_cast<Manager *>(e) != nullptr;
-  };
-  
-
-    
+  };  
   this->bailey->employ(this->rafael, employRafaelWithBailey);
   vector<string> mNames;
   function<void(Employee *)> memberNames = [&mNames](Employee *e) {
@@ -86,16 +86,13 @@ TEST_F(OrganizationTest, employNewDeveloper) {
   ASSERT_EQ(mNames[1], "Hero");
   ASSERT_EQ(mNames[2], "Shane");
   ASSERT_EQ(mNames[3], "Rafael");
-  
 }
 
-TEST_F(OrganizationTest, dismissEmployeeByName) {
+TEST_F(OrganizationTest, test6_dismissEmployeeByName) {
   function<bool (Employee *)> employeeWhoseNameIsHero = [](Employee *e) {
-
     return e->getName() == "Hero";
   };
   this->bailey->dismiss(employeeWhoseNameIsHero);
-
   vector<string> mNames;
   function<void (Employee *)> memberNames = [&mNames](Employee *e) {
     mNames.push_back(e->getName());
@@ -106,14 +103,12 @@ TEST_F(OrganizationTest, dismissEmployeeByName) {
    ASSERT_EQ(mNames[1], "Shane");
 }
 
-TEST_F(OrganizationTest, dismissEmployeeWhoseSeniorityisLessThan3) {
+TEST_F(OrganizationTest, test7_dismissEmployeeWhoseSeniorityisLessThan3) {
   
   function<bool (Employee *)> dismissEmployeeWhoseSeniorityisLessThan3 = [](Employee *e) {
-
     return e->getSeniority() < 3;
   };
   this->bailey->dismiss(dismissEmployeeWhoseSeniorityisLessThan3);
-
   vector<string> mNames;
   function<void (Employee *)> memberNames = [&mNames](Employee *e) {
     mNames.push_back(e->getName());
@@ -124,15 +119,11 @@ TEST_F(OrganizationTest, dismissEmployeeWhoseSeniorityisLessThan3) {
    ASSERT_EQ(mNames[1], "Hero");
 }
 
-TEST_F(OrganizationTest, promoteEmployeeWhoseSeniorityIsGreaterThan3ByRaisingSalary5pct) {
-  
+TEST_F(OrganizationTest, test8_promoteEmployeeWhoseSeniorityIsGreaterThan3ByRaisingSalary5pct) {
   function<void (Employee *)> employeeWhoseSeniorityIsGreaterThan3ByRaisingSalary5pct = [](Employee *e) {
-
     if (e->getSeniority() >= 3) e->setSalary(e->getSalary() * 1.05);
   };
-
   this->bailey->promote(employeeWhoseSeniorityIsGreaterThan3ByRaisingSalary5pct);
-
   vector<int> mSalary;
   function<void (Employee *)> salary = [&mSalary](Employee *e) {
     mSalary.push_back(e->getSalary());
@@ -141,10 +132,9 @@ TEST_F(OrganizationTest, promoteEmployeeWhoseSeniorityIsGreaterThan3ByRaisingSal
    ASSERT_EQ(mSalary[0], 71736);
    ASSERT_EQ(mSalary[1], 57750);
    ASSERT_EQ(mSalary[2], 48000); 
-
 }
 
-TEST_F(OrganizationTest, promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2pct)
+TEST_F(OrganizationTest, test9_promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2pct)
 {
   int count = 0;
   function<void (Employee *)> IfItHasMoreThan2EmployeesByRaisingSalary2pct = [&count](Employee *e){
@@ -153,10 +143,8 @@ TEST_F(OrganizationTest, promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2
   };
 
   this->aysha->promote(IfItHasMoreThan2EmployeesByRaisingSalary2pct);
-
   vector<int> mSalay;
-  function<void(Employee *)> salay = [&mSalay](Employee *e) {
-				       mSalay.push_back(e->getSalary());
+  function<void(Employee *)> salay = [&mSalay](Employee *e) {mSalay.push_back(e->getSalary());
   };
   this->aysha->ask(salay);
   ASSERT_EQ(mSalay[0], 74103);
@@ -166,10 +154,9 @@ TEST_F(OrganizationTest, promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2
   ASSERT_EQ(mSalay[4], 48000);
 }
 
-TEST_F(OrganizationTest, dismissMangerAndTransferEmployees)
+TEST_F(OrganizationTest, test10_dismissMangerAndTransferEmployees)
 {
   vector<Employee *> employees;
-
   function<bool(Employee *)> Bailey = [](Employee *e) {
 					if (dynamic_cast<Manager *>(e) != nullptr && e->getName() == "Bailey") {
 					  return true;
@@ -180,18 +167,14 @@ TEST_F(OrganizationTest, dismissMangerAndTransferEmployees)
   function<bool(Employee *)> transfer = [&employees](Employee *e) {
 					   employees.push_back(e);
 					   return true;
-
 					};
 
   this->aysha->dismiss(Bailey);
   this->bailey->dismiss(transfer);
-  
   for (auto e : employees)
     {
-     
       this->rafael->employ(e, [](Employee *){return true;});
     }
-
   vector<string> mNames;
   function<void(Employee *)> memberNames = [&mNames](Employee *e) {
     mNames.push_back(e->getName());
@@ -202,6 +185,5 @@ TEST_F(OrganizationTest, dismissMangerAndTransferEmployees)
   ASSERT_EQ(mNames[1], "Rafael");
   ASSERT_EQ(mNames[2], "Hero");
   ASSERT_EQ(mNames[3], "Shane");
-
 }
 
