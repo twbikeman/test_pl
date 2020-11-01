@@ -136,10 +136,15 @@ TEST_F(OrganizationTest, test8_promoteEmployeeWhoseSeniorityIsGreaterThan3ByRais
 
 TEST_F(OrganizationTest, test9_promoteEmployeeHavingMoreThan2EmployeesByRaisingSalary2pct)
 {
-  int count = 0;
-  function<void (Employee *)> IfItHasMoreThan2EmployeesByRaisingSalary2pct = [&count](Employee *e){
-									       if (count > 2) e->setSalary(e->getSalary() * 1.02);
-									       count += 1;
+
+  function<void (Employee *)> IfItHasMoreThan2EmployeesByRaisingSalary2pct = [](Employee *e){
+									       int count = 0;
+									       function<void (Employee *)>countNumber = [&count](Employee *e){
+															  count++;
+															};
+										 e->ask(countNumber);
+										 if ( count> 2) e->setSalary(e->getSalary() * 1.02);
+					
   };
 
   this->aysha->promote(IfItHasMoreThan2EmployeesByRaisingSalary2pct);
